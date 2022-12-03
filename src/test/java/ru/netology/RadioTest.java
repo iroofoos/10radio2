@@ -1,170 +1,256 @@
 package ru.netology;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 public class RadioTest {
+
     @Test
-    public void shouldSetRadioStation() {
-        Radio radio = new Radio();
-        radio.setCurrentRadioStation(3);
-        int expected = 3;
-        int actual = radio.getCurrentRadioStation();
+    public void shouldSetBigNumberOfStations() {
+        Radio radio = new Radio(20);
+        radio.setCurrentStation(17);
 
-        Assertions.assertEquals(expected, actual);
+        int expected = 17;
+        int actual = radio.getCurrentStation();
 
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldMaxSetRadioStation() {
-        Radio radio = new Radio();
-        radio.setCurrentRadioStation(50);
+    public void shouldSetNextBigNumberOfStations() {
+        Radio radio = new Radio(20);
+        radio.setCurrentStation(19);
+        radio.nextStation();
+
         int expected = 0;
-        int actual = radio.getCurrentRadioStation();
+        int actual = radio.getCurrentStation();
 
-        Assertions.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldMinSetRadioStation() {
-        Radio radio = new Radio();
-        radio.setCurrentRadioStation(-1);
-        int expected = 0;
-        int actual = radio.getCurrentRadioStation();
+    public void shouldSetNextBigNumberOfStationsInTheMiddle() {
+        Radio radio = new Radio(20);
+        radio.setCurrentStation(15);
+        radio.nextStation();
 
-        Assertions.assertEquals(expected, actual);
+        int expected = 16;
+        int actual = radio.getCurrentStation();
+
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldNextRadioStation() {
-        Radio radio = new Radio();
-        radio.setCurrentRadioStation(4);
-        radio.nextRadioStation();
-        int expected = 5;
-        int actual = radio.getCurrentRadioStation();
+    public void shouldSetPrevBigNumberOfStations() {
+        Radio radio = new Radio(20);
+        radio.setCurrentStation(0);
+        radio.prevStation();
 
-        Assertions.assertEquals(expected, actual);
+        int expected = 19;
+        int actual = radio.getCurrentStation();
+
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldNextRadioStationZero() {
-        Radio radio = new Radio();
-        radio.setCurrentRadioStation(0);
-        radio.nextRadioStation();
+    public void shouldSetPrevBigNumberOfStationsInTheMiddle() {
+        Radio radio = new Radio(20);
+        radio.setCurrentStation(17);
+        radio.prevStation();
+
+        int expected = 16;
+        int actual = radio.getCurrentStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetAboveBigNumberOfStations() {
+        Radio radio = new Radio(20);
+        radio.setCurrentStation(21);
+        radio.nextStation();
+
         int expected = 1;
-        int actual = radio.getCurrentRadioStation();
+        int actual = radio.getCurrentStation();
 
-        Assertions.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldNextRadioStation9() {
+    public void shouldSetBelowBigNumberOfStations() {
+        Radio radio = new Radio(20);
+        radio.setCurrentStation(-1);
+        radio.prevStation();
+
+        int expected = 19;
+        int actual = radio.getCurrentStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldNextStation() {
         Radio radio = new Radio();
-        radio.setCurrentRadioStation(9);
-        radio.nextRadioStation();
+        radio.setCurrentStation(9);
+        radio.nextStation();
+
         int expected = 0;
-        int actual = radio.getCurrentRadioStation();
+        int actual = radio.getCurrentStation();
 
-        Assertions.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldNextRadioStation8() {
+    public void shouldNextStationInTheMiddle() {
         Radio radio = new Radio();
-        radio.setCurrentRadioStation(8);
-        radio.nextRadioStation();
-        int expected = 9;
-        int actual = radio.getCurrentRadioStation();
+        radio.setCurrentStation(5);
+        radio.nextStation();
 
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldNextRadioStation1() {
-        Radio radio = new Radio();
-        radio.setCurrentRadioStation(1);
-        radio.nextRadioStation();
-        int expected = 2;
-        int actual = radio.getCurrentRadioStation();
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldNextRadioStationMinus() {
-        Radio radio = new Radio();
-        radio.setCurrentRadioStation(-1);
-        radio.nextRadioStation();
-        int expected = 1;
-        int actual = radio.getCurrentRadioStation();
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldPrevRadioStation() {
-        Radio radio = new Radio();
-        radio.setCurrentRadioStation(9);
-        radio.prevButtonStation();
-        int expected = 8;
-        int actual = radio.getCurrentRadioStation();
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldPrevRadioStation0() {
-        Radio radio = new Radio();
-        radio.setCurrentRadioStation(0);
-        radio.prevButtonStation();
-        int expected = 9;
-        int actual = radio.getCurrentRadioStation();
-
-        Assertions.assertEquals(expected, actual);
-
-    }
-
-    @Test
-    public void shouldVolumePlus() {
-        Radio radio = new Radio();
-        radio.currentVolume = 5;
-        radio.volumePlus();
         int expected = 6;
-        int actual = radio.currentVolume;
+        int actual = radio.getCurrentStation();
 
-        Assertions.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldVolumePlus10() {
+    public void shouldPrevStation() {
         Radio radio = new Radio();
-        radio.currentVolume = 10;
-        radio.volumePlus();
-        int expected = 10;
-        int actual = radio.currentVolume;
+        radio.setCurrentStation(0);
+        radio.prevStation();
 
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldVolumeMinus() {
-        Radio radio = new Radio();
-        radio.currentVolume = 10;
-        radio.volumeMinus();
         int expected = 9;
-        int actual = radio.currentVolume;
+        int actual = radio.getCurrentStation();
 
-        Assertions.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldVolumeMinus0() {
+    public void shouldPrevStationInTheMiddle() {
         Radio radio = new Radio();
-        radio.currentVolume = 0;
-        radio.volumeMinus();
-        int expected = 0;
-        int actual = radio.currentVolume;
+        radio.setCurrentStation(7);
+        radio.prevStation();
 
-        Assertions.assertEquals(expected, actual);
+        int expected = 6;
+        int actual = radio.getCurrentStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldBelowPrevStation() {
+        Radio radio = new Radio();
+        radio.setCurrentStation(-1);
+        radio.prevStation();
+
+        int expected = 9;
+        int actual = radio.getCurrentStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldAboveNextStation() {
+        Radio radio = new Radio();
+        radio.setCurrentStation(10);
+        radio.nextStation();
+
+        int expected = 1;
+        int actual = radio.getCurrentStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetStation() {
+        Radio radio = new Radio();
+        radio.setCurrentStation(6);
+
+        int expected = 6;
+        int actual = radio.getCurrentStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldNextVolume() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(100);
+        radio.nextVolume();
+
+        int expected = 100;
+        int actual = radio.getCurrentVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldNextVolumeInTheMiddle() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(5);
+        radio.nextVolume();
+
+        int expected = 6;
+        int actual = radio.getCurrentVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldPrevVolume() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(0);
+        radio.prevVolume();
+
+        int expected = 0;
+        int actual = radio.getCurrentVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldPrevVolumeInTheMiddle() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(6);
+        radio.prevVolume();
+
+        int expected = 5;
+        int actual = radio.getCurrentVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldBelowPrevVolume() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(-1);
+        radio.prevVolume();
+
+        int expected = 0;
+        int actual = radio.getCurrentVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldAboveNextVolume() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(101);
+        radio.nextVolume();
+
+        int expected = 1;
+        int actual = radio.getCurrentVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetVolume() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(7);
+
+        int expected = 7;
+        int actual = radio.getCurrentVolume();
+
+        assertEquals(expected, actual);
     }
 }
